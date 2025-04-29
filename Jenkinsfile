@@ -18,8 +18,8 @@ pipeline {
             steps {
                 echo 'Building Docker images for frontend and backend...'
                 script {
-                    bat 'docker build -t %FRONTEND_IMAGE% ./apps/frontend'
-                    bat 'docker build -t %BACKEND_IMAGE% ./apps/backend'
+                    bat "docker build -t ${env.FRONTEND_IMAGE} ./apps/frontend"
+                    bat "docker build -t ${env.BACKEND_IMAGE} ./apps/backend"
                 }
             }
         }
@@ -28,8 +28,8 @@ pipeline {
             steps {
                 echo 'Running frontend and backend containers...'
                 script {
-                    bat 'docker run -d --name frontend -p 3000:3000 %FRONTEND_IMAGE%'
-                    bat 'docker run -d --name backend -p 8080:8080 %BACKEND_IMAGE%'
+                    bat "docker run -d --name frontend -p 3000:3000 ${env.FRONTEND_IMAGE}"
+                    bat "docker run -d --name backend -p 8080:8080 ${env.BACKEND_IMAGE}"
                 }
             }
         }
@@ -42,7 +42,6 @@ pipeline {
                         
                         docker tag quest-search-frontend:latest %DOCKER_USER%/quest-search-frontend:latest
                         docker tag quest-search-backend:latest %DOCKER_USER%/quest-search-backend:latest
-
                         docker push %DOCKER_USER%/quest-search-frontend:latest
                         docker push %DOCKER_USER%/quest-search-backend:latest
                     '''
