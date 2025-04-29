@@ -39,7 +39,6 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     bat '''
                         echo %DOCKER_PASS% | docker login --username %DOCKER_USER% --password-stdin
-                        
                         docker tag quest-search-frontend:latest %DOCKER_USER%/quest-search-frontend:latest
                         docker tag quest-search-backend:latest %DOCKER_USER%/quest-search-backend:latest
                         docker push %DOCKER_USER%/quest-search-frontend:latest
